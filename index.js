@@ -1,39 +1,80 @@
 const PORT = 8000
 const express = require('express')
-// import Express from 'express'
 const cheerio = require('cheerio')
 const axios = require('axios')
 const app = express()
 
 
 
+
 const newspapers = [
     {
+        name: 'cityam',
+        address: 'https://www.cityam.com/',
+        base: ''
+    },
+    {
         name: 'thetimes',
-        address: 'https://www.thetimes.co.uk/environment/climate-change',
+        address: 'https://www.thetimes.co.uk/',
         base: ''
     },
     {
         name: 'guardian',
-        address: 'https://www.theguardian.com/environment/climate-crisis',
+        address: 'https://www.theguardian.com/us/',
         base: '',
     },
     {
         name: 'telegraph',
-        address: 'https://www.telegraph.co.uk/climate-change',
+        address: 'https://www.telegraph.co.uk/',
         base: 'https://www.telegraph.co.uk',
     },
     {
-        name: 'nytimes',
-        address: 'https://www.nytimes.com/section/climate',
+        name: 'nyt',
+        address: 'https://www.nytimes.com/international/section/climate',
         base: '',
     },
     {
-        name: 'WSJ',
-        address: 'https://www.wsj.com/news/world?mod=nav_top_section',
+        name: 'latimes',
+        address: 'https://www.latimes.com/',
         base: '',
     },
+    {
+        name: 'smh',
+        address: 'https://www.smh.com.au/',
+        base: 'https://www.smh.com.au',
+    },
+    {
+        name: 'un',
+        address: 'https://www.un.org/',
+        base: '',
+    },
+    {
+        name: 'bbc',
+        address: 'https://www.bbc.co.uk/news',
+        base: 'https://www.bbc.co.uk',
+    },
+    {
+        name: 'es',
+        address: 'https://www.standard.co.uk/',
+        base: 'https://www.standard.co.uk'
+    },
+    {
+        name: 'sun',
+        address: 'https://www.thesun.co.uk/',
+        base: ''
+    },
+    {
+        name: 'dm',
+        address: 'https://www.dailymail.co.uk/',
+        base: 'https://www.dailymail.co.uk/'
+    },
+    {
+        name: 'nyp',
+        address: 'https://nypost.com/',
+        base: ''
+    }
 ]
+
 const articles = []
 
 newspapers.forEach(newspaper => {
@@ -42,7 +83,7 @@ newspapers.forEach(newspaper => {
             const html = response.data
             const $ = cheerio.load(html)
 
-            $('a:contains("climate")', html).each(function () {
+            $('a:contains("Russia")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 // const image = $(this).attr('img')
@@ -62,8 +103,14 @@ app.get('/', (req, res) => {
     res.json('Welcome to my News Scraper API')
 })
 
-app.get('/news', (req, res) => {
+app.get('/russia-related', (req, res) => {
     res.json(articles)
 })
+
+app.get('/crypto', (req, res) => {
+    
+})
+
+
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
