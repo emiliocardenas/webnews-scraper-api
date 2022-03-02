@@ -13,21 +13,26 @@ const newspapers = [
         address: 'https://www.thetimes.co.uk/environment/climate-change',
         base: ''
     },
-    {
-        name: 'guardian',
-        address: 'https://www.theguardian.com/environment/climate-crisis',
-        base: '',
-    },
+    // {
+    //     name: 'guardian',
+    //     address: 'https://www.theguardian.com/environment/climate-crisis',
+    //     base: '',
+    // },
     {
         name: 'telegraph',
         address: 'https://www.telegraph.co.uk/climate-change',
         base: 'https://www.telegraph.co.uk',
     },
     {
-        name:'nytimes',
-        address: 'https://www.nytimes.com/section/climate'
-
-    }
+        name: 'nytimes',
+        address: 'https://www.nytimes.com/section/climate',
+        base: '',
+    },
+    {
+        name: 'WSJ',
+        address: 'https://www.wsj.com/news/world?mod=nav_top_section',
+        base: '',
+    },
 ]
 const articles = []
 
