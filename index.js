@@ -83,7 +83,7 @@ newspapers.forEach(newspaper => {
             const html = response.data
             const $ = cheerio.load(html)
 
-            $('a:contains("Russia")', html).each(function () {
+            $('a:contains("Biden")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 // const image = $(this).attr('img')
@@ -107,9 +107,9 @@ app.get('/russia-related', (req, res) => {
     res.json(articles)
 })
 
-app.get('/crypto', (req, res) => {
+// app.get('/crypto', (req, res) => {
     
-})
+// })
 
 
 
