@@ -7,4 +7,11 @@
 Topics available:
 
 - Ukraine-Russia 
-- MORE COMING....
+- Crypto
+
+
+End Points: 
+
+- localhost:8000/russia-related
+
+- localhost:8000/crypto
