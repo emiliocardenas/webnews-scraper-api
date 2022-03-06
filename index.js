@@ -10,7 +10,7 @@ const app = express()
 const newspapers = [
     {
         name: 'cityam',
-        address: 'https://www.cityam.com/',
+        address: 'https://www.cityam.com/crypto/',
         base: ''
     },
     {
@@ -76,6 +76,7 @@ const newspapers = [
 ]
 
 const articles = []
+const articles2 = []
 
 newspapers.forEach(newspaper => {
     axios.get(newspaper.address)
@@ -83,12 +84,34 @@ newspapers.forEach(newspaper => {
             const html = response.data
             const $ = cheerio.load(html)
 
-            $('a:contains("Biden")', html).each(function () {
+            $('a:contains("Russia")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 // const image = $(this).attr('img')
 
                 articles.push({
+                    title,
+                    url: newspaper.base + url,
+                    // image,
+                    source: newspaper.name
+                })
+            })
+
+        })
+})
+
+newspapers.forEach(newspaper => {
+    axios.get(newspaper.address)
+        .then(response => {
+            const html = response.data
+            const $ = cheerio.load(html)
+
+            $('a:contains("Crypto")', html).each(function () {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                // const image = $(this).attr('img')
+
+                articles2.push({
                     title,
                     url: newspaper.base + url,
                     // image,
@@ -107,9 +130,10 @@ app.get('/russia-related', (req, res) => {
     res.json(articles)
 })
 
-// app.get('/crypto', (req, res) => {
+app.get('/crypto', (req, res) => {
+    res.json(articles2)
     
-// })
+})
 
 
 
