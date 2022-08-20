@@ -1,107 +1,45 @@
-const PORT = 8000
+const sourceList = require("./sources")
+const PORT = 5068
 const express = require('express')
 const cheerio = require('cheerio')
 const axios = require('axios')
 const app = express()
+const _ = require('lodash')
 
+sources = sourceList
 
+// sources.forEach(source =>{
+//     console.log("Source name: " + source.name)
+// })
 
-
-const newspapers = [
-    {
-        name: 'cityam',
-        address: 'https://www.cityam.com/crypto/',
-        base: ''
-    },
-    {
-        name: 'thetimes',
-        address: 'https://www.thetimes.co.uk/',
-        base: 'https://www.thetimes.co.uk'
-    },
-    {
-        name: 'guardian',
-        address: 'https://www.theguardian.com/us/',
-        base: '',
-    },
-    {
-        name: 'telegraph',
-        address: 'https://www.telegraph.co.uk/',
-        base: 'https://www.telegraph.co.uk',
-    },
-    {
-        name: 'nyt',
-        address: 'https://www.nytimes.com/international/section/climate',
-        base: '',
-    },
-    {
-        name: 'latimes',
-        address: 'https://www.latimes.com/',
-        base: '',
-    },
-    {
-        name: 'smh',
-        address: 'https://www.smh.com.au/',
-        base: 'https://www.smh.com.au',
-    },
-    {
-        name: 'un',
-        address: 'https://www.un.org/',
-        base: '',
-    },
-    {
-        name: 'bbc',
-        address: 'https://www.bbc.co.uk/news',
-        base: 'https://www.bbc.co.uk',
-    },
-    {
-        name: 'es',
-        address: 'https://www.standard.co.uk/',
-        base: 'https://www.standard.co.uk'
-    },
-    {
-        name: 'sun',
-        address: 'https://www.thesun.co.uk/',
-        base: ''
-    },
-    {
-        name: 'dm',
-        address: 'https://www.dailymail.co.uk/',
-        base: 'https://www.dailymail.co.uk/'
-    },
-    {
-        name: 'nyp',
-        address: 'https://nypost.com/',
-        base: ''
-    }
-]
 
 const articles = []
 const articles2 = []
 
-newspapers.forEach(newspaper => {
-    axios.get(newspaper.address)
+sources.forEach(source => {
+    axios.get(source.address)
         .then(response => {
             const html = response.data
             const $ = cheerio.load(html)
 
-            $('a:contains("Russia")', html).each(function () {
+            $('a:contains("Mortgage")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 // const image = $(this).attr('img')
 
                 articles.push({
                     title,
-                    url: newspaper.base + url,
+                    url: source.base + url,
                     // image,
-                    source: newspaper.name
+                    source: source.name
                 })
             })
 
         })
 })
 
-newspapers.forEach(newspaper => {
-    axios.get(newspaper.address)
+sources.forEach(source => {
+    axios.get(source.address)
         .then(response => {
             const html = response.data
             const $ = cheerio.load(html)
@@ -113,9 +51,9 @@ newspapers.forEach(newspaper => {
 
                 articles2.push({
                     title,
-                    url: newspaper.base + url,
+                    url: source.base + url,
                     // image,
-                    source: newspaper.name
+                    source: source.name
                 })
             })
 
