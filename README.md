@@ -1,6 +1,6 @@
 # webnews-scraper-api
 
-**Keep Up with Trending News Topics from Multiple Newspaper Sources** 
+**Keep Up with trending news from multiple newspaper sources** 
 **Designed to consolidate all of the news about desired companies from different news sources** 
 
 
