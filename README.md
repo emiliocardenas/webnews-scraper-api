@@ -1,18 +1,21 @@
 # webnews-scraper-api
 
 **Keep Up with trending news from multiple newspaper sources** 
-**Designed to consolidate all of the news about desired companies from different news sources** 
+**Designed to consolidate all of the news about desired companies from different news sources (stock market trading purposes)** 
 
 
 
 ### Do not get stuck reading a single source of information because you may get misinformed!!
 
-**Companies Targeted** 
+**Companies Targeted:** 
 ["Apple", "AAPL", "Tesla", "TSLA", "Axsome", "AXSM", "Exelixis", "EXEL", "Bed Bath", "BBBY", "Carvana", "CVNA", "Peloton", "PTON", "Nvidia", "NVDA", "META", "Amazon", "AMZN", "Advanced Micro Devices", "AMD"]
 
 **News Sources:**
-Financial Times, NY Times, NY Post, Yahoon Finance, CNBC.
-
+- Financial Times
+- NY Times 
+- NY Post 
+- Yahoo Finance
+- CNBC
 
 
 **End Point:**
