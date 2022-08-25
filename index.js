@@ -5,6 +5,9 @@ const cheerio = require('cheerio')
 const axios = require('axios')
 const app = express()
 const _ = require('lodash')
+// const { forEach } = require("lodash")
+
+
 
 sources = sourceList
 
@@ -13,63 +16,46 @@ sources = sourceList
 // })
 
 
+const stocks = ["Apple", "AAPL", "Tesla", "TSLA", "Axsome", "AXSM", "Exelixis", "EXEL", "Bed Bath", "BBBY", "Carvana", "CVNA", "Peloton", "PTON", "Nvidia", "NVDA", "META", "Amazon", "AMZN", "Advanced Micro Devices", "AMD"]
 const articles = []
-const articles2 = []
 
 sources.forEach(source => {
-    axios.get(source.address)
-        .then(response => {
-            const html = response.data
-            const $ = cheerio.load(html)
 
-            $('a:contains("Mortgage")', html).each(function () {
+    stocks.forEach(stock => {
+        const sendGetRequest = async () => {
+            const resp = await axios.get(source.address)
+            const html = resp.data
+            const $ = cheerio.load(html)
+            $(`a:contains(${stock})`, html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                // const image = $(this).attr('img')
-
                 articles.push({
+                    lookingFor: stock,
                     title,
                     url: source.base + url,
-                    // image,
                     source: source.name
                 })
             })
 
-        })
+        }
+        sendGetRequest();
+    })
+    
 })
 
-sources.forEach(source => {
-    axios.get(source.address)
-        .then(response => {
-            const html = response.data
-            const $ = cheerio.load(html)
+// articles.forEach(article => {
+//     console.log(article.lookingFor)
+// })
 
-            $('a:contains("Crypto")', html).each(function () {
-                const title = $(this).text()
-                const url = $(this).attr('href')
-                // const image = $(this).attr('img')
-
-                articles2.push({
-                    title,
-                    url: source.base + url,
-                    // image,
-                    source: source.name
-                })
-            })
-
-        })
-})
 
 app.get('/', (req, res) => {
     res.json('Welcome to my News Scraper API')
 })
 
-app.get('/russia-related', (req, res) => {
-    res.json(articles)
-})
 
-app.get('/crypto', (req, res) => {
-    res.json(articles2)
+app.get('/stocks', (req, res) => {
+    res.json(articles)
+    // console.log(res.json(articles))
     
 })
 
